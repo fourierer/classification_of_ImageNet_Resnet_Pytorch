@@ -16,12 +16,13 @@ data_transform = transforms.Compose([
 
 print('Test data load begin!')
 test_dataset = torchvision.datasets.ImageFolder(root='/home/momo/mnt/data2/datum/raw/val2', transform=data_transform)
-test_data = DataLoader(test_dataset, batch_size=512, shuffle=True, num_workers=4)
+test_data = DataLoader(test_dataset, batch_size=1, shuffle=True, num_workers=4)
 print(type(test_data))
 print('Test data load done!')
 
 print('load model begin!')
 model = torch.load('/home/momo/sun.zheng/pytorch_imagenet/model_f.pkl')
+model.eval()  # 固定batchnorm，dropout等，一定要有
 model= model.to(device)
 print('load model done!')
 
@@ -45,6 +46,8 @@ for img1, label1 in test_data:
     out = model(img1)
 
     _, pred = out.max(1)
+    print(pred)
+    print(label1)
     num_correct = (pred == label1).sum().item()
     acc = num_correct / img1.shape[0]
     print('Test acc in current batch:' + str(acc))
