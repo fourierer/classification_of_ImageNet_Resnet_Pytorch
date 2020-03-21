@@ -22,7 +22,7 @@ data_transform = transforms.Compose([
 #加载模型
 print('load model begin!')
 model = torch.load('/home/momo/sun.zheng/pytorch_imagenet/model_f.pkl')
-model.eval()
+model.eval()  # 固定训练模型的batchnorm以及dropout等的参数
 model= model.to(device)
 print('load model done!')
 
