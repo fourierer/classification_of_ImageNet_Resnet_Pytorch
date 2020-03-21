@@ -2176,7 +2176,7 @@ if __name__ == '__main__':
     main()
 ```
 
-
+最后一个代码这里不再给出文件，只在readme里面粘贴，因为pytorch官方github上有有源码。
 
 
 
