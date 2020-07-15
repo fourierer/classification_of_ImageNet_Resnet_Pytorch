@@ -3,7 +3,9 @@ import torchvision
 from PIL import Image
 from torchvision import transforms
 from torch.utils.data import DataLoader
+
 device = torch.device('cuda')
+
 data_transform = transforms.Compose([
     transforms.Resize(224),  # 改变图像大小，作为224*224的正方形
     transforms.CenterCrop(224),  # 以图像中心进行切割，参数只有一个要切成正方形转
@@ -14,6 +16,7 @@ data_transform = transforms.Compose([
     # 即：Normalized_image=(image-mean)/std。
 ])
 
+'''
 print('Test data load begin!')
 test_dataset = torchvision.datasets.ImageFolder(root='/home/momo/mnt/data2/datum/raw/val2', transform=data_transform)
 test_data = DataLoader(test_dataset, batch_size=1, shuffle=True, num_workers=4)
@@ -25,17 +28,21 @@ model = torch.load('/home/momo/sun.zheng/pytorch_imagenet/model_f.pkl')
 model.eval()  # 固定batchnorm，dropout等，一定要有
 model= model.to(device)
 print('load model done!')
-
+'''
 
 #测试单个图像属于哪个类别
-'''
+model = torch.load('/home/momo/sun.zheng/pytorch_imagenet/model_f.pkl')
+model.eval()  # 固定batchnorm，dropout等，一定要有
+model= model.to(device)
+
 torch.no_grad()
 img = Image.open('/home/momo/mnt/data2/datum/raw/val2/n01440764/ILSVRC2012_val_00026064.JPEG')
-img = transform(img).unsqueeze(0)
+
 img_= img.to(device)
-outputs = net(img_)
+outputs = model(img_)
 _, predicted = torch.max(outputs,1)
 print('this picture maybe:' + str(predicted))
+
 '''
 #批量测试准确率,并输出所有测试集的平均准确率
 eval_acc = 0
@@ -54,5 +61,5 @@ for img1, label1 in test_data:
     eval_acc +=acc
 
 print('final acc in Test data:' + str(eval_acc / len(test_data)))
-
+'''
 
