@@ -651,7 +651,7 @@ class ImageFolder(DatasetFolder):
 
 上述的训练代码有问题，虽然可以正常运行，但是却没用用到GPU加速。这里列出github上别的大神写的三个代码和pytorch官网上的代码：
 
-pytorch官方给出的ImageNet上的训练代码包括多机多卡训练，情况非常复杂。（https://github.com/pytorch/examples/blob/master/imagenet/main.py）这里先介绍GitHub上另一个大神的代码，编写了三种情况下的单机多卡训练代码。（https://github.com/tczhangzhi/pytorch-distributed）
+pytorch官方给出的ImageNet上的训练代码包括多机多卡训练( https://github.com/pytorch/examples/blob/master/imagenet/main.py )，情况非常复杂。这里先介绍GitHub上另一个大神的代码( https://github.com/tczhangzhi/pytorch-distributed ，编写了三种情况下的单机多卡训练代码。)
 
 1.使用nn.DataParallel
 
